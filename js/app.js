@@ -6,9 +6,10 @@
 
 
 class Enemy {
-  constructor(x, y, sprite) {
+  constructor(x, y, speed, sprite) {
   this.x = x;
   this.y = y;
+  this.speed = speed;
   this.sprite = 'images/enemy-bug.png';
   }
   // Update the enemy's position, required method for game
@@ -17,6 +18,13 @@ class Enemy {
   // which will ensure the game runs at the same speed for
   // all computers.
   update(dt) {
+    this.x += this.speed * dt;
+
+  // If bug is off canvas, restart and add random speed
+    if (this.x > 505) {
+        this.x = -200;
+        this.speed = 50 + Math.floor(Math.random() * 350);
+    }
 
   }
 
@@ -26,24 +34,12 @@ class Enemy {
   }
 }
 
-
-// // Draw the enemy on the screen, required method for game
-// Enemy.prototype.render = function() {
-//     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-// };
-
-// Now write your own player class
-// var Player = function(x, y, sprite) {
-//   this.sprite = 'images/char-cat-girl.png';
-//   this.x = x;
-//   this.y = y;
-// }
-
+// Player class
 class Player {
-  constructor(x,y,sprite, speed) {
+  constructor(x, y,sprite) {
     this.x = x;
     this.y = y;
-    this.speed = speed;
+
     this.sprite = 'images/char-cat-girl.png';
   }
 
@@ -60,7 +56,7 @@ class Player {
         this.x = 0;
     }
 
-    // If player reached top of canvas restart positions
+    // If player reached top of canvas, restart position
     if (this.y < 0) {
         this.x = 200;
         this.y = 400;
@@ -99,9 +95,12 @@ class Player {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 let allEnemies = [];
-var enemy1 = new Enemy(10,10);
-var enemy2 = new Enemy(0,5);
-var enemy3 = new Enemy(1,5);
+var enemy1 = new Enemy(10,100, 90);
+var enemy2 = new Enemy(55,60, 50);
+var enemy3 = new Enemy(50,250, 120);
+var enemy4 = new Enemy(100, 20, 300)
+
+allEnemies.push(enemy1, enemy2, enemy3);
 let player = new Player(200,400);
 
 
