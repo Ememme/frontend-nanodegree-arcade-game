@@ -48,6 +48,23 @@ class Player {
   }
 
   update(){
+    if (this.y > 400) {
+        this.y = 400;
+    }
+
+    if (this.x > 450) {
+        this.x = 450;
+    }
+
+    if (this.x < 0) {
+        this.x = 0;
+    }
+
+    // If player reached top of canvas restart positions
+    if (this.y < 0) {
+        this.x = 200;
+        this.y = 400;
+    }
 
   }
 
