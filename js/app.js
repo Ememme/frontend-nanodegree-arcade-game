@@ -40,9 +40,10 @@ class Enemy {
 // }
 
 class Player {
-  constructor(x,y,sprite) {
+  constructor(x,y,sprite, speed) {
     this.x = x;
     this.y = y;
+    this.speed = speed;
     this.sprite = 'images/char-cat-girl.png';
   }
 
@@ -50,11 +51,26 @@ class Player {
 
   }
 
+
   render(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   }
 
-  handleInput(){
+  handleInput(key){
+    switch(key) {
+      case 'up':
+        this.y -= 50;
+        break;
+      case 'down':
+        this.y += 50;
+        break;
+      case 'left':
+        this.x -= 50;
+        break;
+      case 'right':
+        this.x += 50;
+        break;
+    }
 
   }
 }
@@ -69,7 +85,8 @@ let allEnemies = [];
 var enemy1 = new Enemy(10,10);
 var enemy2 = new Enemy(0,5);
 var enemy3 = new Enemy(1,5);
-let player = new Player();
+let player = new Player(200,400);
+
 
 
 // This listens for key presses and sends the keys to your
