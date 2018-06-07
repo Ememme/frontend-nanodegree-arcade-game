@@ -20,10 +20,16 @@ class Enemy {
   update(dt) {
     this.x += this.speed * dt;
 
-  // If bug is off canvas, restart and add random speed
+  // If bug is off canvas, 'rewind' and add random speed
     if (this.x > 505) {
         this.x = -200;
         this.speed = 50 + Math.floor(Math.random() * 350);
+    }
+  // Collision with player >> resets player to initial position
+    if (player.x < this.x + 60 && player.x + 35 > this.x
+      && player.y < this.y + 25 && 30 + player.y > this.y) {
+        player.x = 200;
+        player.y = 400;
     }
 
   }
@@ -36,14 +42,14 @@ class Enemy {
 
 // Player class
 class Player {
-  constructor(x, y,sprite) {
+  constructor(x, y,sprite ) {
     this.x = x;
     this.y = y;
-
     this.sprite = 'images/char-cat-girl.png';
   }
 
   update(){
+    // Prevents player from going off canvas
     if (this.y > 400) {
         this.y = 400;
     }
@@ -56,12 +62,11 @@ class Player {
         this.x = 0;
     }
 
-    // If player reached top of canvas, restart position
+    // If player reached water (top of canvas), restart position
     if (this.y < 0) {
         this.x = 200;
         this.y = 400;
     }
-
   }
 
 
