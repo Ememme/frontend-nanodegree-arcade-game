@@ -1,68 +1,105 @@
 body {
-    text-align: center;
+  text-align: center;
+}
+
+.board {
+  margin: 0 auto;
+  width: 505px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-flex: 1fr;
+      -ms-flex: 1fr 1fr;
+          flex: 1fr 1fr;
+}
+
+#lives {
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 #lives img {
-  width: 20px;
+  width: 45px;
+  height: 45px;
 }
 
+#points {
+  font-size: 1.2rem;
+  font-family: 'Helvetica', sans-serif;
+  font-family: 'Press Start 2P', cursive;
+  color: #5FC148;
+  text-transform: uppercase;
+}
+#winner-popup,
 #gameover-popup {
-    display: none;
-    z-index: 1;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    padding: 10px;
-    color: #000;
-    text-align: center;
+  display: none;
+  z-index: 1;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  color: #000;
+  text-align: center;
 }
 
 .modal-content {
-    margin: 5% auto;
-    padding: 50px;
-    width: 80%;
-    height: 450px;
-    font-size: 1.5em;
-    background-color: #fff;
-    border-radius: 6px;
-    border: 1px solid rgb(84, 108, 214);
-    -webkit-box-shadow: 7px 7px 15px 0 rgba(0, 0, 0, 0.3),
-    0 7px 25px 0 rgba(0, 0, 0, 0.2);
-    box-shadow: 7px 7px 15px 0 rgba(0, 0, 0, 0.3),
-    0 7px 25px 0 rgba(0, 0, 0, 0.2);
+  background-color: green;
+  margin: 0 auto;
+  padding: 50px;
+  width: 80%;
+  height: 550px;
+  font-size: 1.5em;
+  background-color: #fff;
+  border-radius: 6px;
+  border: 1px solid rgb(84, 108, 214);
+  -webkit-box-shadow: 7px 7px 15px 0 rgba(0, 0, 0, 0.3), 0 7px 25px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 7px 7px 15px 0 rgba(0, 0, 0, 0.3), 0 7px 25px 0 rgba(0, 0, 0, 0.2);
 }
 
-.game-over-title,
-.congrats-title {
+.game-over-title, .congrats-title {
   position: absolute;
   top: 20%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  background-color: yellow;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
   width: 100%;
-	margin: 0 auto;
-	font-size: 4.2em;
-	text-align: center;
-	font-weight: 600;
-	letter-spacing: 5px;
+  margin: 0 auto;
+  font-size: 4.2em;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 5px;
   color: rgb(84, 108, 214);
-	font-family: 'Press Start 2P', cursive;
+  font-family: 'Press Start 2P', cursive;
 }
+
 .winner {
   font-weight: 500;
   font-family: 'Helvetica', sans-serif;
 }
+
 .bug-wrapper {
   padding: 100px;
 }
 
 button {
   background: rgb(84, 108, 214);
-  border-bottom: 5px inset rgba(0,0,0,.5);
-  border-left: 5px inset rgba(0,0,0,.5);
-  border-right: 5px inset rgba(255,255,255,.5);
-  border-top: 5px inset rgba(255,255,255,.5);
+  border-bottom: 5px inset rgba(0, 0, 0, .5);
+  border-left: 5px inset rgba(0, 0, 0, .5);
+  border-right: 5px inset rgba(255, 255, 255, .5);
+  border-top: 5px inset rgba(255, 255, 255, .5);
   color: #D2D2C8;
   display: inline-block;
   font-family: 'Press Start 2P', cursive;
@@ -75,21 +112,41 @@ button {
 }
 
 button:hover {
-  border-top: 5px inset rgba(0,0,0,.5);
-  border-right: 5px inset rgba(0,0,0,.5);
-  border-left: 5px inset rgba(255,255,255,.5);
-  border-bottom: 5px inset rgba(255,255,255,.5);
+  border-top: 5px inset rgba(0, 0, 0, .5);
+  border-right: 5px inset rgba(0, 0, 0, .5);
+  border-left: 5px inset rgba(255, 255, 255, .5);
+  border-bottom: 5px inset rgba(255, 255, 255, .5);
   color: #FFFFFF;
   cursor: pointer;
 }
 
 .character {
-  animation: bounce 0.5s cubic-bezier(.5,0.05,1,.5);
-  animation-direction: alternate;
-  animation-iteration-count: infinite;
+  -webkit-animation: bounce 0.5s cubic-bezier(.5, 0.05, 1, .5);
+          animation: bounce 0.5s cubic-bezier(.5, 0.05, 1, .5);
+  -webkit-animation-direction: alternate;
+          animation-direction: alternate;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes bounce {
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+  to {
+    -webkit-transform: translate3d(0, 30px, 0);
+            transform: translate3d(0, 30px, 0);
+  }
 }
 
 @keyframes bounce {
-  from { transform: translate3d(0, 0, 0);     }
-  to   { transform: translate3d(0, 30px, 0); }
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+  to {
+    -webkit-transform: translate3d(0, 30px, 0);
+            transform: translate3d(0, 30px, 0);
+  }
 }
