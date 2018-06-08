@@ -25,13 +25,6 @@ class Enemy {
         this.x = -200;
         this.speed = 50 + Math.floor(Math.random() * 350);
     }
-  // Collision with player >> resets player to initial position
-    if (player.x < this.x + 60 && player.x + 35 > this.x
-      && player.y < this.y + 25 && 30 + player.y > this.y) {
-        player.x = 200;
-        player.y = 400;
-    }
-
   }
 
   // Draw the enemy on the screen, required method for game
@@ -42,10 +35,38 @@ class Enemy {
 
 // Player class
 class Player {
-  constructor(x, y,sprite ) {
+  constructor(x, y,sprite, lives, points ) {
     this.x = x;
     this.y = y;
     this.sprite = 'images/char-cat-girl.png';
+    this.lives = 5;
+    this.points = 0;
+  }
+
+  collision(player, enemy){
+    if (player.x < enemy.x + 60 && player.x + 35 > enemy.x
+      && player.y < enemy.y + 25 && 30 + player.y > enemy.y) {
+        player.lives -= 1;
+        player.x = 200;
+        player.y = 400;
+        const lives = document.getElementById('lives');
+        lives.removeChild(lives.lastElementChild);
+    }
+  }
+
+  lostLife(){
+    if (player.lives > 0) {
+      this.lives -=1;
+    }
+  }
+
+  gainPoints(){
+    // If player reached water (top of canvas), add 50 points and restart position
+    if (this.y < 0) {
+        this.x = 200;
+        this.y = 400;
+        this.points += 50;
+    } console.log(player.points);
   }
 
   update(){
@@ -61,15 +82,7 @@ class Player {
     if (this.x < 0) {
         this.x = 0;
     }
-
-    // If player reached water (top of canvas), restart position
-    if (this.y < 0) {
-        this.x = 200;
-        this.y = 400;
-    }
   }
-
-
   render(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   }
@@ -100,12 +113,13 @@ class Player {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 let allEnemies = [];
-var enemy1 = new Enemy(10,100, 90);
-var enemy2 = new Enemy(55,60, 50);
-var enemy3 = new Enemy(50,250, 120);
-var enemy4 = new Enemy(100, 20, 300)
+let enemy1 = new Enemy(10,100, 90);
+let enemy2 = new Enemy(55,60, 50);
+let enemy3 = new Enemy(80,250, 120);
+let enemy4 = new Enemy(135, 20, 300);
+let enemy5 = new Enemy(200, 70, 200);
 
-allEnemies.push(enemy1, enemy2, enemy3);
+allEnemies.push(enemy1, enemy2, enemy3, enemy4, enemy5);
 let player = new Player(200,400);
 
 
@@ -113,7 +127,7 @@ let player = new Player(200,400);
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
-    var allowedKeys = {
+    const allowedKeys = {
         37: 'left',
         38: 'up',
         39: 'right',
