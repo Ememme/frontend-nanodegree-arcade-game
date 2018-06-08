@@ -79,7 +79,9 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
+        updatePoints();
+        gameWon();
     }
 
     /* This is called by the update function and loops through all of the
@@ -94,6 +96,7 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
+        player.gainPoints();
     }
 
     /* This function initially draws the "game level", it will then call
@@ -161,9 +164,73 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // noop
+        hideModal();
+        reloadGame();
+        clearHearts();
+        addHeartsToBoard();
+        player.lives = 5;
+        player.points = 0;
     }
 
+
+    function checkCollisions() {
+      for (let i = 0; i < allEnemies.length; i++) {
+        let enemy = allEnemies[i];
+          if (player.collision(player, enemy) && player.lives > 0) {
+            player.lostLife()
+          } else {
+            gameLost();
+          }
+       }
+     }
+
+    function updatePoints() {
+      const points = document.getElementById('score');
+      points.innerHTML = `Points: ${player.points}`;
+    }
+
+
+    function hideModal(){
+      const modals = document.getElementsByClassName('modal');
+        for(i = 0; i < modals.length; i++){
+          modals[i].style.display = 'none';
+        }
+    }
+
+    function reloadGame() {
+        const reloadGameBtns = document.getElementsByClassName('new-game-btn');
+        for (i = 0; i < reloadGameBtns.length; i++) {
+          reloadGameBtns[i].addEventListener('click', init);
+        }
+    }
+
+    function gameLost() {
+      if (player.lives == 0) {
+        const gameOver = document.getElementById('gameover-popup');
+        gameOver.style.display = 'block';
+      }
+    }
+
+    function gameWon() {
+      if (player.points == 200) {
+        const gameWon = document.getElementById('winner-popup');
+        gameWon.style.display = 'block';
+      }
+    }
+    // Clears heart from previous game
+    function clearHearts(){
+      const lives = document.getElementById('lives');
+      lives.innerHTML = '';
+    }
+    // Resets hearts to 5 after previous game
+    function addHeartsToBoard() {
+      for(let i = 0; i < 5; i++) {
+        const lives = document.getElementById('lives');
+        const heart = document.createElement('img');
+        heart.setAttribute('src', 'images/Heart.png');
+        lives.appendChild(heart);
+      }
+    }
     /* Go ahead and load all of the images we know we're going to need to
      * draw our game level. Then set init as the callback method, so that when
      * all of these images are properly loaded our game will start.
