@@ -5,6 +5,41 @@
     <title>Effective JavaScript: Frogger</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+<header>
+<!--BOARD-->
+  <div class="container">
+      <div class="board">
+          <div id="lives">
+              <img src="images/Heart.png" alt="heart">
+              <img src="images/Heart.png" alt="heart">
+              <img src="images/Heart.png" alt="heart">
+              <img src="images/Heart.png" alt="heart">
+              <img src="images/Heart.png" alt="heart">
+          </div>
+      </div>
+  </div>
+</header>
+<!--GAME OVER MODAL -->
+  <div id="gameover-popup" class="modal">
+    <div class="modal-content">
+        <h1 class="game-over-title">Game over</h1>
+        <div class="bug-wrapper">
+            <img class="bug" src="images/enemy-bug.png" alt="enemy-bug">
+            <img class="bug" src="images/enemy-bug.png" alt="enemy-bug">
+            <img class="bug" src="images/enemy-bug.png" alt="enemy-bug">
+        </div>
+        <button id="reload-game-btn" class="new-game-btn">Try again</button>
+    </div>
+  </div>
+  <!-- WINNER MODAL -->
+  <div id="winner-popup" class="modal">
+      <div class="modal-content">
+          <h1 class="congrats-title">You won!</h1>
+          <img class="character" src="images/char-cat-girl.png" alt="cat girl character">
+          <p class="winner">You made it to the river and earned 200 points!!!</p>
+          <button id="reload-game-after-win-btn" class="new-game-btn">Play again</button>
+      </div>
+  </div>
 <body>
     <script src="js/resources.js"></script>
     <script src="js/app.js"></script>
